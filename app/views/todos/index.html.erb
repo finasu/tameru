@@ -1,0 +1,61 @@
+<div class="container">
+  <h1>Todo</h1>
+  
+  <% flash.each do |name, msg| %>
+    <div class="alert alert-<%= name %>">
+      <%= msg %>
+    </div>
+  <% end %>
+  
+  
+  <div class="row">
+    <div class="col-2 border border-success">
+      All
+      
+    </div>
+    
+    <div class="col-10">
+      <% @todos.each do |t| %>
+        <div class="row mb-1 border border-primary rounded">
+          <div class="col-10">
+            <%= t.task %>
+          </div>
+          <div class="col-2 text-right">
+            <%= link_to "/todos/#{t.id}", method: :get do %>
+              <i class="fas fa-edit"></i>
+            <% end %>
+            
+            <%= link_to "/todos/#{t.id}", method: :delete do %>
+              <i class="fas fa-times-circle"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      
+      <%= form_tag "/todos", method: :post do %>
+        <!--<%= label_tag "category" %>-->
+        <!--<%= select_tag 'state', options_for_select(@status), class: "form-control" %>-->
+      
+        <!--<%= label_tag "todo" %>-->
+        <div class="row">
+          <div class="col-10 px-0">
+            <%= text_field_tag :todo,"", class: "form-control" %>
+          </div>
+          <div class="col-2 px-0">
+            <%= button_tag(type: "submit", class: "btn btn-primary btn-block") do %>
+              <i class="fas fa-paper-plane"></i>
+            <% end %>
+          </div>
+        </div>
+        
+      <% end %>
+    </div>
+  </div>
+  
+</div>
+
+<script>
+  $(function(){
+    setTimeout("$('.alert').fadeOut('slow')", 3000) 
+  })
+</script>
